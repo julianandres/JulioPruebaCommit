@@ -5,6 +5,8 @@
  */
 package beans;
 
+import dataEjb.UserEJB;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -20,7 +22,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
-
+    @EJB
+    private UserEJB userEjb;
     private String nombre;
     private String clave;
     private boolean login = false;

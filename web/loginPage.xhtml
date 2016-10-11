@@ -9,12 +9,10 @@
         <title>Login Page</title>
     </h:head>
     <h:body style="text-align:center">
-        
+        <p:growl id="mensajes" showDetail="true" life="2000" />
         <h:form>
-            <h:button value="boton"></h:button>
             <p:panel header="Login" style="width:300px">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel value="hola"></p:outputLabel>
                     <h:outputLabel for="username" value="Usuario:" />
                     <p:inputText value="#{loginBean.nombre}" id="username"
                                  required="true" label="username" />

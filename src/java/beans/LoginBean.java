@@ -23,10 +23,10 @@ public class LoginBean {
 
     private String nombre;
     private String clave;
-    private boolean logeado = false;
+    private boolean login = false;
 
     public boolean estaLogeado() {
-        return logeado;
+        return login;
     }
 
     public String getNombre() {
@@ -50,16 +50,16 @@ public class LoginBean {
         FacesMessage msg = null;
         if (nombre != null && nombre.equals("admin") && clave != null
                 && clave.equals("admin")) {
-            logeado = true;
+            login = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", nombre);
         } else {
-            logeado = false;
+            login = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
                     "Credenciales no válidas");
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.addCallbackParam("estaLogeado", logeado);
-        if (logeado) {
+        context.addCallbackParam("estaLogeado", login);
+        if (login) {
             context.addCallbackParam("view", "gauge.xhtml");
         }
     }
@@ -68,7 +68,17 @@ public class LoginBean {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
         session.invalidate();
-        logeado = false;
+        login = false;
+    }
+    public String iniciarSistema(){
+        String destino;
+     if(login){
+       destino="initPage.xhtml";
+     }else{
+       destino="loginPage.xhtml";
+     }
+    
+     return destino;
     }
 
 }

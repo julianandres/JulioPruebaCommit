@@ -5,7 +5,9 @@
  */
 package beans;
 
+import dataBase.ConexionDB;
 import dataEjb.UserEJB;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,7 +23,8 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
+
     @EJB
     private UserEJB userEjb;
     private String nombre;
@@ -73,15 +76,17 @@ public class LoginBean {
         session.invalidate();
         login = false;
     }
-    public String iniciarSistema(){
+
+    public String iniciarSistema() {
         String destino;
-     if(login){
-       destino="initPage.xhtml";
-     }else{
-       destino="loginPage.xhtml";
-     }
-    
-     return destino;
+        ConexionDB con = new ConexionDB();
+        if (login) {
+            destino = "initPage.xhtml";
+        } else {
+            destino = "loginPage.xhtml";
+        }
+
+        return destino;
     }
 
 }

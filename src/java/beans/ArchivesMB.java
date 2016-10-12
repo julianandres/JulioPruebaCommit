@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,7 +25,7 @@ import org.primefaces.event.FileUploadEvent;
  */
 @ManagedBean
 @SessionScoped
-public class ArchivesMB {
+public class ArchivesMB implements Serializable {
     private String destination="/home/julian/";
 
     /**

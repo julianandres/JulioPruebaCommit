@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dataEjb;
 
+import handlers.HandUser;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import models.Usuario;
 
 /**
  *
@@ -17,5 +19,29 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class UserEJB implements Serializable {
-    
+
+   public Usuario findUserByID(int id) {
+        HandUser hus = new HandUser();
+        Usuario resultado = new Usuario();
+        List<Usuario> allUser = hus.listarUsuarios();
+        for (Usuario us : allUser) {
+            if (us.getId() == id) {
+                resultado = us;
+            }
+        }
+        hus.cerrarConexion();
+        return resultado;
+    }
+   public Usuario findUserByLogin(String login){
+        HandUser hus = new HandUser();
+        Usuario resultado = new Usuario();
+        List<Usuario> allUser = hus.listarUsuarios();
+        for (Usuario us : allUser) {
+            if (us.getLogin().equals(login)) {
+                resultado = us;
+            }
+        }
+        hus.cerrarConexion();
+        return resultado;
+    }
 }

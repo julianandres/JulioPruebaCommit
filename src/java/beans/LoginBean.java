@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
+import models.Usuario;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -27,61 +28,80 @@ public class LoginBean implements Serializable {
 
     @EJB
     private UserEJB userEjb;
-    private String nombre;
-    private String clave;
+    private String username;
+    private String password;
     private boolean login = false;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public boolean estaLogeado() {
         return login;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
-        if (nombre != null && nombre.equals("admin") && clave != null
-                && clave.equals("admin")) {
-            login = true;
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", nombre);
+        if (username != null) {
+            Usuario usu = userEjb.findUserByLogin(username);
+            if (usu.getPassword() != null) {
+                if (username.equals(usu.getLogin()) && password != null
+                        && password.equals(usu.getPassword())) {
+                    login = true;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", usu.getNombre());
+                } else {
+                    login = false;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
+                            "Credenciales no válidas");
+                }
+            } else {
+                login = false;
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
+                        "Credenciales no válidas");
+            }
         } else {
             login = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
                     "Credenciales no válidas");
+
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("estaLogeado", login);
         if (login) {
-            context.addCallbackParam("view", "gauge.xhtml");
+            context.addCallbackParam("view", "uploadPage.xhtml");
         }
     }
 
-    public void logout() {
+    public String logout() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.addCallbackParam("view", "index.xhtml");
+        context.addCallbackParam("estaLogeado", login);
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
         session.invalidate();
         login = false;
+        return "index.xhtml";
     }
 
     public String iniciarSistema() {
         String destino;
-        ConexionDB con = new ConexionDB();
+        Usuario us = userEjb.findUserByID(1);
+        System.out.println(us.getNombre());
         if (login) {
-            destino = "initPage.xhtml";
+            destino = "uploadPage.xhtml";
         } else {
             destino = "loginPage.xhtml";
         }

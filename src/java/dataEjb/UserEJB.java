@@ -20,12 +20,12 @@ import models.Usuario;
 @LocalBean
 public class UserEJB implements Serializable {
 
-   public Usuario findUserByID(int id) {
+   public Usuario findUserByID(String id) {
         HandUser hus = new HandUser();
         Usuario resultado = new Usuario();
         List<Usuario> allUser = hus.listarUsuarios();
         for (Usuario us : allUser) {
-            if (us.getId() == id) {
+            if (us.getId().equals(id)) {
                 resultado = us;
             }
         }

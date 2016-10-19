@@ -5,8 +5,8 @@
  */
 package beans;
 
-import dataBase.ConexionDB;
 import dataEjb.UserEJB;
+import java.io.File;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -98,14 +98,11 @@ public class LoginBean implements Serializable {
 
     public String iniciarSistema() {
         String destino;
-        Usuario us = userEjb.findUserByID(1);
-        System.out.println(us.getNombre());
         if (login) {
             destino = "uploadPage.xhtml";
         } else {
             destino = "loginPage.xhtml";
         }
-
         return destino;
     }
 

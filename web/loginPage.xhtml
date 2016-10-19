@@ -14,10 +14,10 @@
             <p:panel header="Login" style="width:300px">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="username" value="Usuario:" />
-                    <p:inputText value="#{loginBean.nombre}" id="username"
+                    <p:inputText value="#{loginBean.username}" id="username"
                                  required="true" label="username" />
                     <h:outputLabel for="password" value="Clave:" />
-                    <p:password value="#{loginBean.clave}" id="password" required="true"
+                    <p:password value="#{loginBean.password}" id="password" required="true"
                                 label="password" />
                     <f:facet name="footer">
                         <p:commandButton id="loginButton" value="Login"
@@ -34,7 +34,7 @@
             if (!args.validationFailed && args.estaLogeado) {
                 setTimeout(function() {
                     window.location = args.view;
-                }, 500);
+                }, 1000);
             }
         }
         //]]>

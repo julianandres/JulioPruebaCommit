@@ -26,7 +26,7 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean
 @SessionScoped
 public class ArchivesMB implements Serializable {
-    private String destination="/home/julian/";
+    private final String destination="D:/";
 
     /**
      * Creates a new instance of archivesMB
@@ -42,7 +42,6 @@ public class ArchivesMB implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ConexionDB con = new ConexionDB();
         
     }
     

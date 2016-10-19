@@ -39,18 +39,18 @@ public class HandUser {
     }
 
     public List<Usuario> listarUsuarios() {
-        List<Usuario> resultado = new ArrayList<Usuario>();
+        List<Usuario> resultado = new ArrayList<>();
         if (sentencia != null) {
             try {
-                ResultSet res = sentencia.executeQuery("SELECT * FROM Usuarios");
+                ResultSet res = sentencia.executeQuery("SELECT * FROM Usuario");
                 while (res.next()) {
                        Usuario us= new Usuario();
-                       us.setId(res.getInt("idUsuario"));
-                       us.setEmail(res.getString("correo"));
+                       us.setId(res.getString("id"));
+                       us.setEmail(res.getString("email"));
                        us.setLogin(res.getString("login"));
                        us.setNombre(res.getString("nombre"));
                        us.setPassword(res.getString("password"));
-                       us.setTipo(res.getString("tipoUsuario"));
+                       us.setTipo(res.getString("tipo"));
                        resultado.add(us);
                 }
               sentencia.close();

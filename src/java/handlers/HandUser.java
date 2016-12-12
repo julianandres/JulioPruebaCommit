@@ -28,8 +28,7 @@ public class HandUser {
     public HandUser() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://agromovil-server.database.windows.net:1433;databaseName=agromovildb",
-                    "julianbolanos", ",.940925jabort");
+            con = DriverManager.getConnection("jdbc:sqlserver://mobileagroserverdatabase.database.windows.net:1433;database=DataBaseMovileAgro;user=julianbolanos@mobileagroserverdatabase;password=,.940925jabort;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
             sentencia = con.createStatement();
 
         } catch (Exception e) {

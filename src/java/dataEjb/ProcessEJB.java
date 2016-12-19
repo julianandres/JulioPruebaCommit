@@ -22,7 +22,7 @@ import models.Proceso;
 @Stateless
 @LocalBean
 public class ProcessEJB {
-     public List<Proceso> findSubProcesobyIdProceso(String idUsuario){
+     public List<Proceso> findProcesobyIdUsuario(String idUsuario){
         List<Proceso> procesos = new ArrayList<Proceso>();
         HandProcess hp= new HandProcess();
         procesos = hp.listarProcesosByIdUsuario(idUsuario);

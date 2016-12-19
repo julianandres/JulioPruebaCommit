@@ -32,6 +32,7 @@ public class ArchivesMB implements Serializable {
      * Creates a new instance of archivesMB
      * @param event
      */
+    
     public void handleFileUpload(FileUploadEvent event) {
        // UploadFile file;
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");

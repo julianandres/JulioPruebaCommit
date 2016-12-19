@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -22,16 +23,35 @@ import org.primefaces.context.RequestContext;
  *
  * @author julian
  */
-@ManagedBean
+@ManagedBean(name ="loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
     @EJB
     private UserEJB userEjb;
+    
     private String username;
     private String password;
+    private String idUsuario;
     private boolean login = false;
 
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public boolean isLogin() {
+        return login;
+    }
+
+    public void setLogin(boolean login) {
+        this.login = login;
+    }
+
+    
     public String getPassword() {
         return password;
     }
@@ -62,6 +82,7 @@ public class LoginBean implements Serializable {
                         && password.equals(usu.getPassword())) {
                     login = true;
                     msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", usu.getNombre());
+                    idUsuario = usu.getId();
                 } else {
                     login = false;
                     msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
@@ -81,7 +102,7 @@ public class LoginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("estaLogeado", login);
         if (login) {
-            context.addCallbackParam("view", "uploadPage.xhtml");
+            context.addCallbackParam("view", "mainPage.xhtml");
         }
     }
 
@@ -99,11 +120,10 @@ public class LoginBean implements Serializable {
     public String iniciarSistema() {
         String destino;
         if (login) {
-            destino = "uploadPage.xhtml";
+            destino = "mainPage.xhtml";
         } else {
             destino = "loginPage.xhtml";
         }
         return destino;
     }
-
 }

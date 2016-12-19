@@ -11,8 +11,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import models.Proceso;
 
 /**
@@ -39,13 +43,19 @@ public class HandProcess {
         List<Proceso> resultado = new ArrayList<>();
         if (sentencia != null) {
             try {
-                ResultSet res = sentencia.executeQuery("SELECT * FROM Proceso WHERE idUsuario = ");
+                
+                ResultSet res = sentencia.executeQuery("SELECT * FROM Proceso WHERE idUsuario = '"+idusuario+"'");
                 while (res.next()) {
                        Proceso sp= new Proceso();
                        sp.setId(res.getString("id"));
                        sp.setNombre(res.getString("nombre"));
                        sp.setIdUsuario(res.getString("idUsuario"));
-                       sp.setFechaInicio(res.getDate("fechaInicio"));
+                       //sp.setFechaInicio(res.getDate("fechaInicio"));
+                       String tm = res.getString("fechaInicio");
+                       DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
+                       sp.setFechaInicio(format.parse(tm));
+                       tm = res.getString("fechaFin");
+                       sp.setFechaFin(format.parse(tm));
                        sp.setDuracionSemanas(res.getInt("duracionSemanas"));
                        sp.setNumeroSubprocesos(res.getInt("numeroSubprocesos"));
                        sp.setState(res.getBoolean("state"));
@@ -54,7 +64,7 @@ public class HandProcess {
                 }
               sentencia.close();
               con.close();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("hubo un error   " + ex.getMessage());
             }
         }

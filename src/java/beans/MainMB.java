@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import models.Proceso;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -69,8 +70,12 @@ public class MainMB implements Serializable {
         this.processSelect = processSelect;
     }
     public void abrirProceso(){
-    
-    
-        
+        if(processSelect!=null){
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.addCallbackParam("view", "processPage.xhtml");
+         }
+        else {
+         //TODO poner aqui el mensaje de seleccionar uno
+        }  
     } 
 }

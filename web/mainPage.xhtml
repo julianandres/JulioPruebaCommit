@@ -37,8 +37,19 @@
                      <h:outputText  value="#{selProcess.subProcesoActual}"/>
                 </p:column>
             </p:dataTable>
-            <p:commandButton action="#{mainMB.abrirProceso}" value="Abrir Proceso seleccionado"/>
+            <p:commandButton action="#{mainMB.abrirProceso}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
         </h:form>
     </h:body>
+    <script type="text/javascript">
+        //<![CDATA[
+        function manejarProceso(xhr, status, args) {
+           
+                setTimeout(function() {
+                    window.location = args.view;
+                }, 1000);
+            
+        }
+        //]]>
+    </script>
 </html>
 

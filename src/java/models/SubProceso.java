@@ -12,12 +12,32 @@ public class SubProceso {
     Date fecha;
     String nombre;
     String idProceso;
+    String stateShow;
+    int disponibilidad;
     int numeroenProceso;
     int estado;
 
+    public int getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(int disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    
     public Date getFecha() {
         return fecha;
     }
+
+    public String getStateShow() {
+        return stateShow;
+    }
+
+    public void setStateShow(String stateShow) {
+        this.stateShow = stateShow;
+    }
+    
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;

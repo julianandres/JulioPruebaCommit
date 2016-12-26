@@ -8,17 +8,61 @@
         <title>Proceso</title>
     </h:head>
     <h:body>
-         <h:form>
-             <p:panel header="Proceso #{mainMB.processSelect.nombre}" style="width:300px">
-                <h:panelGrid columns="2" cellpadding="5">
+        <h:form id="form" style="margin-left: 200px; margin-right: 200px">
+            <p:panel header="Proceso #{mainMB.processSelect.nombre}">
+                <p:panelGrid id="panelGrid" columns="2">
                     <h:outputLabel for="Nombre" value="Nombre:" />
                     <h:outputLabel value="#{mainMB.processSelect.nombre}" id="username"
-                                  /> 
+                                   /> 
                     <h:outputLabel for="nuber" value="Sub Proceso Actual" />
                     <h:outputLabel value="#{mainMB.processSelect.subProcesoActual}" />  
-                </h:panelGrid>
+                    <f:facet name="footer">
+                        <p:dataTable draggableColumns="true" 
+                                     emptyMessage="No hay datos para mostrar"
+                                     id="listResSubProcess"
+                                     value="#{mainMB.subProcessTable}"
+                                     var="selSubProcess"
+                                     rowKey="#{selSubProcess.nombre}">
+                            <f:facet name="header">
+                                Lista de  Sub Procesos #{mainMB.processSelect.nombre}
+                            </f:facet>
+                            <p:column headerText="Nombre" >
+                                <h:outputText value="#{selSubProcess.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Fecha de realización">
+                                <h:outputText value="#{selSubProcess.fecha}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText  value="#{selSubProcess.estado}"/>
+                            </p:column>
+                            <p:column style="width:50px">
+                                <p:commandLink  update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                                    <f:setPropertyActionListener value="#{selSubProcess}" target="#{mainMB.subProcessSelect}" />
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                        <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                            <p:outputPanel id="documentPanel">
+                                <p:panelGrid id="panelGrid2" columns="2" columnClasses="label,value" rendered="#{not empty mainMB.subProcessSelect}">
+                                    <h:outputLabel for="name" value="Name: " />
+                                    <h:outputText id="name" value="#{mainMB.subProcessSelect.nombre}" style="font-weight:bold" />
+
+                                    <h:outputLabel for="numeroProceso" value="Número en proceso " />
+                                    <h:outputText id="size" value="#{mainMB.subProcessSelect.numeroenProceso}" style="font-weight:bold" />
+
+                                    <h:outputLabel for="fecha" value="Fecha " />
+                                    <h:outputText id="type" value="#{mainMB.subProcessSelect.fecha}" style="font-weight:bold">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </f:facet> 
+                </p:panelGrid>
             </p:panel>
-          </h:form>
+        </h:form>
     </h:body>
 </html>
 

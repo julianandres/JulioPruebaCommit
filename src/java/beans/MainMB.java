@@ -7,6 +7,7 @@
 package beans;
 
 import dataEjb.ProcessEJB;
+import dataEjb.SubProcessEJB;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import models.Proceso;
+import models.SubProceso;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -51,9 +53,31 @@ public class MainMB implements Serializable {
     @EJB
     private ProcessEJB processEjb;
     
+    @EJB
+    private SubProcessEJB subProcessEjb;
+    
     private List<Proceso> processTable;
     private Proceso processSelect;
+    
+    private List<SubProceso> subProcessTable;
+    private SubProceso subProcessSelect;
 
+    public List<SubProceso> getSubProcessTable() {
+        return subProcessTable;
+    }
+
+    public void setSubProcessTable(List<SubProceso> subProcessTable) {
+        this.subProcessTable = subProcessTable;
+    }
+
+    public SubProceso getSubProcessSelect() {
+        return subProcessSelect;
+    }
+
+    public void setSubProcessSelect(SubProceso subProcessSelect) {
+        this.subProcessSelect = subProcessSelect;
+    }
+    
     public List<Proceso> getProcessTable() {
         return processTable;
     }
@@ -73,6 +97,7 @@ public class MainMB implements Serializable {
         if(processSelect!=null){
             RequestContext context = RequestContext.getCurrentInstance();
             context.addCallbackParam("view", "processPage.xhtml");
+            subProcessTable = subProcessEjb.findSubProcesobyIdProceso(processSelect.getId());
          }
         else {
          //TODO poner aqui el mensaje de seleccionar uno

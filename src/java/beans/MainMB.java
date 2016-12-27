@@ -40,6 +40,7 @@ public class MainMB implements Serializable {
         processTable = processEjb.findProcesobyIdUsuario(logBean.getUsername());
         System.out.println("hola");
         System.out.println(logBean.getUsername());
+        setSubirFotos(false);
     }
 
     public LoginBean getLogBean() {
@@ -48,6 +49,16 @@ public class MainMB implements Serializable {
 
     public void setLogBean(LoginBean logBean) {
         this.logBean = logBean;
+    }
+    
+    private boolean subirFotos;
+
+    public boolean isSubirFotos() {
+        return subirFotos;
+    }
+
+    public void setSubirFotos(boolean subirFotos) {
+        this.subirFotos = subirFotos;
     }
     
     @EJB
@@ -92,6 +103,16 @@ public class MainMB implements Serializable {
 
     public void setProcessSelect(Proceso processSelect) {
         this.processSelect = processSelect;
+    }
+    
+    public void seleccionarSubProceso() {
+        if (subProcessSelect != null) {
+            if (subProcessSelect.getDisponibilidad() == 1) {
+                setSubirFotos(true);
+            } else {
+                setSubirFotos(false);
+            }
+        }
     }
     public void abrirProceso(){
         if(processSelect!=null){

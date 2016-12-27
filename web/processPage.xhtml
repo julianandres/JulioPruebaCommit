@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Proceso</title>
     </h:head>
@@ -38,8 +39,8 @@
                                 <h:outputText  value="#{selSubProcess.estado}"/>
                             </p:column>
                             <p:column style="width:50px">
-                                <p:commandLink  update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-                                    <f:setPropertyActionListener value="#{selSubProcess}" target="#{mainMB.subProcessSelect}" />
+                                <p:commandLink  actionListener="#{mainMB.seleccionarSubProceso()}"  update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                                    <f:setPropertyActionListener  value="#{selSubProcess}" target="#{mainMB.subProcessSelect}" />
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
@@ -56,6 +57,15 @@
                                     <h:outputText id="type" value="#{mainMB.subProcessSelect.fecha}" style="font-weight:bold">
                                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                     </h:outputText>
+                                    <h:outputLabel for="disponibilidad" value="Estado" />
+                                    <h:outputText id="show" value="#{mainMB.subProcessSelect.stateShow}" style="font-weight:bold" />
+                                    <c:if test="#{mainMB.subirFotos}">
+                                        <f:facet name="footer">
+                                            <p:commandButton id="loginButton" value="Subir Fotografias"
+                                                             action="#{loginBean.uploadPhotos()}"
+                                                             />
+                                        </f:facet>
+                                    </c:if>
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>

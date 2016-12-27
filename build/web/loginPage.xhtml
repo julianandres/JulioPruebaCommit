@@ -21,7 +21,8 @@
                                 label="password" />
                     <f:facet name="footer">
                         <p:commandButton id="loginButton" value="Login"
-                                         actionListener="#{loginBean.login}" update=":mensajes"
+                                         action="#{loginBean.login}"
+                                         update=":mensajes"
                                          oncomplete="manejarLogin(xhr, status, args)" />
                     </f:facet>
                 </h:panelGrid>

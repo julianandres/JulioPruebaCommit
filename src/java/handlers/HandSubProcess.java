@@ -55,44 +55,44 @@ public class HandSubProcess {
                     sp.setNombre(res.getString("nombre"));
                     sp.setIdProceso(res.getString("idProceso"));
                     sp.setNumeroenProceso(res.getInt("numeroenProceso"));
-                    if (res.getInt("estado") == 0) {
-                        sp.setStateShow("No disponible");
-                    }
-                    if (res.getInt("estado") == 1) {
-                        sp.setStateShow("Actual");
-                    }
-                    if (res.getInt("estado") == 2) {
-                        sp.setStateShow("Finalizado");
-                    }
                     GregorianCalendar fechaHoy = new GregorianCalendar();
                     GregorianCalendar config = new GregorianCalendar();
                     fechaHoy.setTime(new Date());
-                    
-                    Date datePrevia= addDays(sp.getFecha(),1);
-                    Date datePost= addDays(sp.getFecha(),-1);
-                    
+
+                    Date datePrevia = addDays(sp.getFecha(), 1);
+                    Date datePost = addDays(sp.getFecha(), -1);
+
                     config.setTime(datePrevia);
                     System.out.println(fechaHoy.getTime() + " fechaHoy");
                     System.out.println(config.getTime() + " fecha config");
 
                     int ts = config.compareTo(fechaHoy);
-                    if(ts<0){
+                    if (ts < 0) {
                         config.setTime(datePost);
                         ts = config.compareTo(fechaHoy);
-                        if(ts>0){
+                        if (ts > 0) {
                             //esta en el rango disponible
                             sp.setDisponibilidad(1);
-                        
-                        }else{
+                            if (res.getInt("estado") == 0) {
+                                sp.setStateShow("Disponible");
+                            } else {
+                                sp.setStateShow("Actual");
+                            }
+                        } else {
                             //rango pasado
-                            sp.setDisponibilidad(2);
+                            sp.setDisponibilidad(3);
+                            if (res.getInt("estado") == 0) {
+                                sp.setStateShow("Perdido");
+                            } else {
+                                sp.setStateShow("Finalizado");
+                            }
                         }
-                    }else{
-                       sp.setDisponibilidad(0);
-                      //aun no se llega la fecha
+                    } else {
+                        sp.setDisponibilidad(0);
+                        sp.setStateShow("No disponible");
+                        //aun no se llega la fecha
                     }
-                    
-                    
+
                     sp.setEstado(res.getInt("estado"));
                     resultado.add(sp);
                 }
@@ -115,6 +115,7 @@ public class HandSubProcess {
         }
 
     }
+
     public Date addDays(Date fecha, int dias) {
         Date dato = fecha;
         GregorianCalendar gc = new GregorianCalendar();

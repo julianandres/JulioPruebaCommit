@@ -13,9 +13,9 @@ public class SubProceso {
     String nombre;
     String idProceso;
     String stateShow;
-    int disponibilidad;
+    int disponibilidad;// disponible =1 noDisponible=0 procesado=2 perdido=3
     int numeroenProceso;
-    int estado;
+    int estado; //pendiente=0 procesado=1
 
     public int getDisponibilidad() {
         return disponibilidad;

@@ -72,7 +72,7 @@ public class LoginBean implements Serializable {
         this.username = username;
     }
 
-    public void login(ActionEvent actionEvent) {
+    public String login() {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         if (username != null) {
@@ -102,7 +102,9 @@ public class LoginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("estaLogeado", login);
         if (login) {
-            context.addCallbackParam("view", "mainPage.xhtml");
+            return "mainPage.xhtml";
+        }else{
+            return "loginPage.xhtml";
         }
     }
 
@@ -125,5 +127,8 @@ public class LoginBean implements Serializable {
             destino = "loginPage.xhtml";
         }
         return destino;
+    }
+    public String uploadPhotos(){
+        return "uploadPage.xhtml";
     }
 }

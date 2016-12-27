@@ -37,7 +37,7 @@
                      <h:outputText  value="#{selProcess.subProcesoActual}"/>
                 </p:column>
             </p:dataTable>
-            <p:commandButton action="#{mainMB.abrirProceso}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
+            <p:commandButton action="#{mainMB.abrirProceso()}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
         </h:form>
     </h:body>
     <script type="text/javascript">

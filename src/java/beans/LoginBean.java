@@ -106,7 +106,7 @@ public class LoginBean implements Serializable {
         }
     }
 
-    public String logout() {
+    public void logout() {
         RequestContext context = RequestContext.getCurrentInstance();
         context.addCallbackParam("view", "index.xhtml");
         context.addCallbackParam("estaLogeado", login);
@@ -114,7 +114,6 @@ public class LoginBean implements Serializable {
                 .getExternalContext().getSession(false);
         session.invalidate();
         login = false;
-        return "index.xhtml";
     }
 
     public String iniciarSistema() {
@@ -126,4 +125,5 @@ public class LoginBean implements Serializable {
         }
         return destino;
     }
+    
 }

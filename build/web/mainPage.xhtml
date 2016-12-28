@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-             <p:dataTable draggableColumns="true" 
+            <p:dataTable draggableColumns="true" 
                          emptyMessage="No hay datos para mostrar"
                          id="listRespdf"
                          value="#{mainMB.processTable}"
@@ -26,28 +26,31 @@
                 <p:column headerText="Fecha de inicio">
                     <h:outputText value="#{selProcess.fechaInicio}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                     </h:outputText>
+                    </h:outputText>
                 </p:column>
-                 <p:column headerText="Fecha de finalización">
-                     <h:outputText value="#{selProcess.fechaFin}">
-                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                     </h:outputText>
+                <p:column headerText="Fecha de finalización">
+                    <h:outputText value="#{selProcess.fechaFin}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
                 </p:column>
-                 <p:column headerText="Sub Proceso Actual">
-                     <h:outputText  value="#{selProcess.subProcesoActual}"/>
+                <p:column headerText="Sub Proceso Actual">
+                    <h:outputText  value="#{selProcess.subProcesoActual}"/>
                 </p:column>
             </p:dataTable>
-            <p:commandButton action="#{mainMB.abrirProceso}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
+            <p:panelGrid id="panelGridnumero2" columns="2">
+                <p:commandButton action="#{mainMB.abrirProceso}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
+                <p:commandButton actionListener="#{loginBean.logout()}" oncomplete="manejarProceso(xhr, status, args)" value="Cerrar Sesión"/>            
+            </p:panelGrid>
         </h:form>
     </h:body>
     <script type="text/javascript">
         //<![CDATA[
         function manejarProceso(xhr, status, args) {
-           
-                setTimeout(function() {
-                    window.location = args.view;
-                }, 1000);
-            
+
+            setTimeout(function() {
+                window.location = args.view;
+            }, 1000);
+
         }
         //]]>
     </script>

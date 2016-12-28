@@ -119,9 +119,13 @@ public class MainMB implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             context.addCallbackParam("view", "processPage.xhtml");
             subProcessTable = subProcessEjb.findSubProcesobyIdProceso(processSelect.getId());
+            System.out.println("hola");
          }
         else {
          //TODO poner aqui el mensaje de seleccionar uno
         }  
     } 
+    public String uploadPhotos(){
+        return "uploadPage.xhtml";
+    }
 }

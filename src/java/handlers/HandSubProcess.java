@@ -50,8 +50,8 @@ public class HandSubProcess {
                     SubProceso sp = new SubProceso();
                     sp.setId(res.getString("id"));
                     String tm = res.getString("fecha");
-                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
-                    sp.setFecha(format.parse(tm));
+                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+                    sp.setFecha(addHours(format.parse(tm),-5));
                     sp.setNombre(res.getString("nombre"));
                     sp.setIdProceso(res.getString("idProceso"));
                     sp.setNumeroenProceso(res.getInt("numeroenProceso"));
@@ -60,8 +60,8 @@ public class HandSubProcess {
                     GregorianCalendar config = new GregorianCalendar();
                     fechaHoy.setTime(new Date());
                     
-                    Date datePrevia= addDays(sp.getFecha(),1);
-                    Date datePost= addDays(sp.getFecha(),-1);
+                    Date datePrevia= addDays(sp.getFecha(),-1);
+                    Date datePost= addDays(sp.getFecha(),1);
                     
                     config.setTime(datePrevia);
                     System.out.println(fechaHoy.getTime() + " fechaHoy");
@@ -123,6 +123,14 @@ public class HandSubProcess {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(fecha);
         gc.add(Calendar.DAY_OF_MONTH, dias);
+        dato = gc.getTime();
+        return dato;
+    }
+    public Date addHours(Date fecha, int horas) {
+        Date dato;
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        gc.add(Calendar.HOUR_OF_DAY, horas);
         dato = gc.getTime();
         return dato;
     }

@@ -64,7 +64,7 @@
                                     <c:if test="#{mainMB.subirFotos}">
                                          <f:facet name="footer">
                                              <p:commandButton id="loginButton" value="Subir Fotografias"
-                                                              action="#{mainMB.uploadPhotos()}"
+                                                              action="#{mainMB.uploadPhotos()}" oncomplete="manejarProceso(xhr, status, args)"
                                                               />
                                          </f:facet>
                                     </c:if>
@@ -76,5 +76,16 @@
             </p:panel>
         </h:form>
     </h:body>
+    <script type="text/javascript">
+        //<![CDATA[
+        function manejarProceso(xhr, status, args) {
+
+            setTimeout(function() {
+                window.location = args.view;
+            }, 1000);
+
+        }
+        //]]>
+    </script>
 </html>
 

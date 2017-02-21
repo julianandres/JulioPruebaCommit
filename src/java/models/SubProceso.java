@@ -13,10 +13,29 @@ public class SubProceso {
     String nombre;
     String idProceso;
     String stateShow;
-    int disponibilidad; // disponible =1 noDisponible=0 procesado=2 perdido=3
+    int fotonoir;
+    int fotorgb;
+    int disponibilidad; // disponible =1 noDisponible=0 procesado=2 perdido=3 pendiente =4
     int numeroenProceso;
-    int estado;  //pendiente=0 procesado=1
+    int estado;  //pendiente=0 
 
+    public int getFotonoir() {
+        return fotonoir;
+    }
+
+    public void setFotonoir(int fotonoir) {
+        this.fotonoir = fotonoir;
+    }
+
+    public int getFotorgb() {
+        return fotorgb;
+    }
+
+    public void setFotorgb(int fotorgb) {
+        this.fotorgb = fotorgb;
+    }
+    
+    
     public int getDisponibilidad() {
         return disponibilidad;
     }

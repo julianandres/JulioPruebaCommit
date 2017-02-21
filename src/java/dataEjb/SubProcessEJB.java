@@ -26,6 +26,13 @@ public class SubProcessEJB implements Serializable {
         List<SubProceso> subProcesos = new ArrayList<SubProceso>();
         HandSubProcess hsp= new HandSubProcess();
         subProcesos = hsp.listarSubProcesosbyIdProceso(idProceso);
+        hsp.cerrarConexion();
         return subProcesos;
+    }
+    public boolean updateSubProceso(SubProceso subproceso,String foto){
+        boolean resultado = false;
+        HandSubProcess  hsp= new HandSubProcess();
+        resultado = hsp.updateSubProceso(subproceso,foto);
+        return resultado;
     }
 }

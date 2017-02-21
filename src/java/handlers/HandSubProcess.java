@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +34,7 @@ public class HandSubProcess {
     public HandSubProcess() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://mobileagroserverdatabase.database.windows.net:1433;database=DataBaseMovileAgro;user=julianbolanos@mobileagroserverdatabase;password=,.940925jabort;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+            con = DriverManager.getConnection("jdbc:sqlserver://agromobileserver.database.windows.net:1433;database=AgroMobileDataBase;user=julianbolanos@agromobileserver;password=,.940925jabort;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
             sentencia = con.createStatement();
 
         } catch (Exception e) {
@@ -46,32 +48,34 @@ public class HandSubProcess {
         if (sentencia != null) {
             try {
                 ResultSet res = sentencia.executeQuery("SELECT * FROM SubProceso WHERE idProceso = '" + idProceso + "' ");
+                
                 while (res.next()) {
                     SubProceso sp = new SubProceso();
                     sp.setId(res.getString("id"));
                     String tm = res.getString("fecha");
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-                    sp.setFecha(addHours(format.parse(tm),-5));
+                    sp.setFecha(addHours(format.parse(tm), -5));
                     sp.setNombre(res.getString("nombre"));
                     sp.setIdProceso(res.getString("idProceso"));
                     sp.setNumeroenProceso(res.getInt("numeroenProceso"));
-                    
+                    sp.setFotonoir(res.getInt("fotonoir"));
+                    sp.setFotorgb(res.getInt("fotorgb"));
                     GregorianCalendar fechaHoy = new GregorianCalendar();
                     GregorianCalendar config = new GregorianCalendar();
                     fechaHoy.setTime(new Date());
-                    
-                    Date datePrevia= addDays(sp.getFecha(),-1);
-                    Date datePost= addDays(sp.getFecha(),1);
-                    
+
+                    Date datePrevia = addDays(sp.getFecha(), -1);
+                    Date datePost = addDays(sp.getFecha(), 1);
+
                     config.setTime(datePrevia);
                     System.out.println(fechaHoy.getTime() + " fechaHoy");
                     System.out.println(config.getTime() + " fecha config");
 
                     int ts = config.compareTo(fechaHoy);
-                    if(ts<0){
+                    if (ts < 0) {
                         config.setTime(datePost);
                         ts = config.compareTo(fechaHoy);
-                        if(ts>0){
+                        if (ts > 0) {
                             //esta en el rango disponible
                             sp.setDisponibilidad(1);
                             if (res.getInt("estado") == 0) {
@@ -79,8 +83,8 @@ public class HandSubProcess {
                             } else {
                                 sp.setStateShow("Actual");
                             }
-                        
-                        }else{
+
+                        } else {
                             //rango pasado
                             sp.setDisponibilidad(2);
                             if (res.getInt("estado") == 0) {
@@ -89,13 +93,12 @@ public class HandSubProcess {
                                 sp.setStateShow("Finalizado");
                             }
                         }
-                    }else{
-                       sp.setDisponibilidad(0);
-                       sp.setStateShow("No disponible");
-                      //aun no se llega la fecha
+                    } else {
+                        sp.setDisponibilidad(0);
+                        sp.setStateShow("No disponible");
+                        //aun no se llega la fecha
                     }
-                    
-                    
+
                     sp.setEstado(res.getInt("estado"));
                     resultado.add(sp);
                 }
@@ -111,6 +114,7 @@ public class HandSubProcess {
 
     public void cerrarConexion() {
         try {
+            
             sentencia.close();
             con.close();
         } catch (SQLException ex) {
@@ -118,6 +122,7 @@ public class HandSubProcess {
         }
 
     }
+
     public Date addDays(Date fecha, int dias) {
         Date dato = fecha;
         GregorianCalendar gc = new GregorianCalendar();
@@ -126,6 +131,7 @@ public class HandSubProcess {
         dato = gc.getTime();
         return dato;
     }
+
     public Date addHours(Date fecha, int horas) {
         Date dato;
         GregorianCalendar gc = new GregorianCalendar();
@@ -133,5 +139,20 @@ public class HandSubProcess {
         gc.add(Calendar.HOUR_OF_DAY, horas);
         dato = gc.getTime();
         return dato;
+    }
+
+    public boolean updateSubProceso(SubProceso subproceso,String foto) {
+        if (sentencia != null) {
+            try {
+                
+                int res = sentencia.executeUpdate("UPDATE SubProceso SET "+foto+" = 1 WHERE id = '" + subproceso.getId() + "' ");
+                System.out.println(res);
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(HandSubProcess.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
 }

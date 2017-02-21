@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:dataTable draggableColumns="true" 
+            <p:dataTable draggableColumns="true"
                          emptyMessage="No hay datos para mostrar"
                          id="listRespdf"
                          value="#{mainMB.processTable}"
@@ -38,7 +38,7 @@
                 </p:column>
             </p:dataTable>
             <p:panelGrid id="panelGridnumero2" columns="2">
-                <p:commandButton action="#{mainMB.abrirProceso}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
+                <p:commandButton action="#{mainMB.abrirProceso()}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
                 <p:commandButton actionListener="#{loginBean.logout()}" oncomplete="manejarProceso(xhr, status, args)" value="Cerrar Sesión"/>            
             </p:panelGrid>
         </h:form>

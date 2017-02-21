@@ -26,6 +26,7 @@ public class ProcessEJB {
         List<Proceso> procesos = new ArrayList<Proceso>();
         HandProcess hp= new HandProcess();
         procesos = hp.listarProcesosByIdUsuario(idUsuario);
+        hp.cerrarConexion();
         return procesos;
     }
 }

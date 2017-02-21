@@ -35,14 +35,48 @@ public class MainMB implements Serializable {
     @ManagedProperty("#{loginBean}")
     private LoginBean logBean;
     
+    
+
+    
+    
+ 
+    @EJB
+    private ProcessEJB processEjb;
+    
+    @EJB
+    private SubProcessEJB subProcessEjb;
+    private List<Proceso> processTable;
+    private Proceso processSelect;
+    private List<SubProceso> subProcessTable;
+    private SubProceso subProcessSelect;
+    private boolean subirFotos;
+    private boolean selecttypephoto;
+
     @PostConstruct
     public void init() {
         processTable = processEjb.findProcesobyIdUsuario(logBean.getUsername());
         System.out.println("hola");
         System.out.println(logBean.getUsername());
         setSubirFotos(false);
+        setSelecttypephoto(true); 
     }
 
+    public boolean isSelecttypephoto() {
+        return selecttypephoto;
+    }
+
+    public void setSelecttypephoto(boolean selecttypephoto) {
+        this.selecttypephoto = selecttypephoto;
+    }
+    
+    
+     public boolean isSubirFotos() {
+        return subirFotos;
+    }
+
+    public void setSubirFotos(boolean subirFotos) {
+        this.subirFotos = subirFotos;
+    }
     public LoginBean getLogBean() {
         return logBean;
     }
@@ -51,28 +85,6 @@ public class MainMB implements Serializable {
         this.logBean = logBean;
     }
     
-    private boolean subirFotos;
-
-    public boolean isSubirFotos() {
-        return subirFotos;
-    }
-
-    public void setSubirFotos(boolean subirFotos) {
-        this.subirFotos = subirFotos;
-    }
-    
-    @EJB
-    private ProcessEJB processEjb;
-    
-    @EJB
-    private SubProcessEJB subProcessEjb;
-    
-    private List<Proceso> processTable;
-    private Proceso processSelect;
-    
-    private List<SubProceso> subProcessTable;
-    private SubProceso subProcessSelect;
-
     public List<SubProceso> getSubProcessTable() {
         return subProcessTable;
     }
@@ -114,18 +126,37 @@ public class MainMB implements Serializable {
             }
         }
     }
-    public void abrirProceso(){
+    public void seleccionarTipoFoto() {
+        if (subProcessSelect != null) {
+            if (subProcessSelect.getDisponibilidad() == 1) {
+                setSubirFotos(true);
+            } else {
+                setSubirFotos(false);
+            }
+        }
+    }
+    public void irUploadPhotoNGB(){
+        setSelecttypephoto(true);   
+    }
+    public void irUploadPhotoRGB(){
+        setSelecttypephoto(false);
+    }
+    public String abrirProceso(){
         if(processSelect!=null){
             RequestContext context = RequestContext.getCurrentInstance();
-            context.addCallbackParam("view", "processPage.xhtml");
+            context.addCallbackParam("view", "/faces/processPage.xhtml");
             subProcessTable = subProcessEjb.findSubProcesobyIdProceso(processSelect.getId());
             System.out.println("hola");
+            return "processPage.xhtml";
          }
         else {
+            return "";
          //TODO poner aqui el mensaje de seleccionar uno
         }  
     } 
-    public String uploadPhotos(){
-        return "uploadPage.xhtml";
+    public void uploadPhotos(){
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.addCallbackParam("view", "uploadPage.xhtml");
     }
+    
 }

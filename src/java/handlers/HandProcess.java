@@ -26,11 +26,12 @@ import models.Proceso;
 public class HandProcess {
     Connection con;
     Statement sentencia;
+    
 
     public HandProcess() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://mobileagroserverdatabase.database.windows.net:1433;database=DataBaseMovileAgro;user=julianbolanos@mobileagroserverdatabase;password=,.940925jabort;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+            con = DriverManager.getConnection("jdbc:sqlserver://agromobileserver.database.windows.net:1433;database=AgroMobileDataBase;user=julianbolanos@agromobileserver;password=,.940925jabort;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
             sentencia = con.createStatement();
 
         } catch (Exception e) {

@@ -82,7 +82,7 @@ public class LoginBean implements Serializable {
         this.username = username;
     }
 
-    public String login() {
+    public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         if (username != null) {
@@ -95,7 +95,8 @@ public class LoginBean implements Serializable {
                     idUsuario = usu.getId();
                 } else {
                     login = false;
-                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error","Credenciales no válidas");
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
+                            "Credenciales no válidas");
                 }
             } else {
                 login = false;
@@ -111,9 +112,7 @@ public class LoginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("estaLogeado", login);
         if (login) {
-            return "mainPage.xhtml";
-        }else{
-            return "loginPage.xhtml";
+            context.addCallbackParam("view", "mainPage.xhtml");
         }
     }
 

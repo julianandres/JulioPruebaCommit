@@ -141,22 +141,19 @@ public class MainMB implements Serializable {
     public void irUploadPhotoRGB(){
         setSelecttypephoto(false);
     }
-    public String abrirProceso(){
+    public void abrirProceso(){
         if(processSelect!=null){
             RequestContext context = RequestContext.getCurrentInstance();
-            context.addCallbackParam("view", "/faces/processPage.xhtml");
+            context.addCallbackParam("view", "processPage.xhtml");
             subProcessTable = subProcessEjb.findSubProcesobyIdProceso(processSelect.getId());
             System.out.println("hola");
-            return "processPage.xhtml";
          }
         else {
-            return "";
          //TODO poner aqui el mensaje de seleccionar uno
         }  
     } 
-    public void uploadPhotos(){
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.addCallbackParam("view", "uploadPage.xhtml");
+    public String uploadPhotos(){
+        return "uploadPage.xhtml";
     }
     
 }

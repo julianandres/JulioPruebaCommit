@@ -38,7 +38,7 @@
                 </p:column>
             </p:dataTable>
             <p:panelGrid id="panelGridnumero2" columns="2">
-                <p:commandButton action="#{mainMB.abrirProceso()}" oncomplete="manejarProceso(xhr, status, args)" value="Abrir Proceso seleccionado"/>
+                <p:commandButton actionListener="#{mainMB.abrirProceso()}" value="Abrir Proceso seleccionado" oncomplete="manejarProceso(xhr, status, args)"/>
                 <p:commandButton actionListener="#{loginBean.logout()}" oncomplete="manejarProceso(xhr, status, args)" value="Cerrar Sesión"/>            
             </p:panelGrid>
         </h:form>

@@ -82,7 +82,7 @@ public class LoginBean implements Serializable {
         this.username = username;
     }
 
-    public void login(ActionEvent actionEvent) {
+    public String login() {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         if (username != null) {
@@ -95,8 +95,7 @@ public class LoginBean implements Serializable {
                     idUsuario = usu.getId();
                 } else {
                     login = false;
-                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
-                            "Credenciales no válidas");
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error","Credenciales no válidas");
                 }
             } else {
                 login = false;
@@ -112,18 +111,23 @@ public class LoginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("estaLogeado", login);
         if (login) {
-            context.addCallbackParam("view", "mainPage.xhtml");
+            return "mainPage.xhtml";
+        }else{
+            return "loginPage.xhtml";
         }
     }
 
-    public void logout() {
+    public String logout() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.addCallbackParam("view", "index.xhtml");
         context.addCallbackParam("estaLogeado", login);
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
         session.invalidate();
         login = false;
+        return "loginPage.xhtml";
+    }
+    public void invalidarSession(){
+        
     }
 
     public String iniciarSistema() {
@@ -134,6 +138,5 @@ public class LoginBean implements Serializable {
             destino = "loginPage.xhtml";
         }
         return destino;
-    }
-    
+    }   
 }

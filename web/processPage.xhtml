@@ -44,7 +44,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Volver" onclick="window.history.back();" />
+                        <p:commandButton value="Volver" action="#{mainMB.backPage()}" />
                         <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                             <p:outputPanel id="documentPanel">
                                 <p:panelGrid id="panelGrid2" columns="2" columnClasses="label,value" rendered="#{not empty mainMB.subProcessSelect}">
@@ -77,16 +77,6 @@
             </p:panel>
         </h:form>
     </h:body>
-    <script type="text/javascript">
-        //<![CDATA[
-        function manejarProceso(xhr, status, args) {
-
-            setTimeout(function() {
-                window.location = args.view;
-            }, 1000);
-
-        }
-        //]]>
-    </script>
+   
 </html>
 

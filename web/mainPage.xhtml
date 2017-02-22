@@ -38,21 +38,12 @@
                 </p:column>
             </p:dataTable>
             <p:panelGrid id="panelGridnumero2" columns="2">
-                <p:commandButton actionListener="#{mainMB.abrirProceso()}" value="Abrir Proceso seleccionado" oncomplete="manejarProceso(xhr, status, args)"/>
-                <p:commandButton actionListener="#{loginBean.logout()}" oncomplete="manejarProceso(xhr, status, args)" value="Cerrar Sesión"/>            
+                <p:commandButton action="#{mainMB.abrirProceso()}" value="Abrir Proceso seleccionado" update="messages" />
+                <p:commandButton action="#{loginBean.logout()}"  value="Cerrar Sesión"/>            
             </p:panelGrid>
+            <p:growl id="messages" showDetail="true" />
         </h:form>
     </h:body>
-    <script type="text/javascript">
-        //<![CDATA[
-        function manejarProceso(xhr, status, args) {
-
-            setTimeout(function() {
-                window.location = args.view;
-            }, 1000);
-
-        }
-        //]]>
-    </script>
+    
 </html>
 

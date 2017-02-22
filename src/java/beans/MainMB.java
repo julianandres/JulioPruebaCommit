@@ -12,9 +12,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import models.Proceso;
 import models.SubProceso;
 import org.primefaces.context.RequestContext;
@@ -141,19 +143,28 @@ public class MainMB implements Serializable {
     public void irUploadPhotoRGB(){
         setSelecttypephoto(false);
     }
-    public void abrirProceso(){
+    public String abrirProceso(){
         if(processSelect!=null){
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.addCallbackParam("view", "processPage.xhtml");
+            
             subProcessTable = subProcessEjb.findSubProcesobyIdProceso(processSelect.getId());
             System.out.println("hola");
+            return "processPage.xhtml";
          }
         else {
-         //TODO poner aqui el mensaje de seleccionar uno
+            
+         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error", "Seleccionar Un proceso en la columna Nombre");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+         return "";
         }  
     } 
     public String uploadPhotos(){
-        return "uploadPage.xhtml";
+        return "uploadPage.xhtml"; 
+    }
+    public String backPage(){
+        return "mainPage.xhtml";
+    }
+    public String backPageUpload(){
+        return "processPage.xhtml";
     }
     
 }

@@ -102,29 +102,39 @@ public class ArchivesMB implements Serializable {
     }
 
     public void handleFileUploadNoir(FileUploadEvent event) {
-        
         try {
             copyFile(event.getFile().getFileName(), event.getFile().getInputstream(), "FotoNoir\\");
-            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotonoir");
+            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotonoir","1");
             stateNgb=true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void handleFileUploadRGB(FileUploadEvent event) {
         
         try {
             copyFile(event.getFile().getFileName(), event.getFile().getInputstream(), "FotoRGB\\");
-            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotorgb");
+            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotorgb","1");
             stateRgb=true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public void deleteFileNoir() {
+            deleteFile("file", "FotoNoir\\");
+            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotonoir","0");
+            stateNgb=false;
+    }
+    public void deleteFileRGB() {
+            deleteFile("file", "FotoRGB\\");
+            ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(),"fotorgb","0");
+            stateRgb=false;
+    }
+
 
     public void copyFile(String fileName, InputStream in, String tipo) {
         destination = "D:\\" + logBean.getUsername() + "\\" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "\\" + mainmb.getSubProcessSelect().getNombre() + "\\" + tipo;
+        
         try {
             if (new File(destination).mkdirs()) {
                 System.out.println("create Exited");
@@ -154,6 +164,36 @@ public class ArchivesMB implements Serializable {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    
+    public void deleteFile(String fileName, String tipo) {
+        destination = "D:\\" + logBean.getUsername() + "\\" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "\\" + mainmb.getSubProcessSelect().getNombre() + "\\" + tipo;
+        System.out.println(destination);
+        File directiorioAborrar=new File(destination);
+        borrarDirectorio(directiorioAborrar);
+        
+        if (directiorioAborrar.delete()) {
+            System.out.println("Eliminado con exito");
+
+            System.out.println("se ha eliminado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Succesful", "Eliminado Correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,"Error", "Error eliminando");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("Problem Create");
+        }
+        System.out.println("prueba");
+    }
+    public void borrarDirectorio(File directorio){
+         File[] ficheros = directorio.listFiles();
+        for (File fichero : ficheros) {
+            if (fichero.isDirectory()) {
+                borrarDirectorio(fichero);
+            }
+            fichero.delete();
         }
     }
 }

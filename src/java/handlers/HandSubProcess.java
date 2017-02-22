@@ -141,11 +141,11 @@ public class HandSubProcess {
         return dato;
     }
 
-    public boolean updateSubProceso(SubProceso subproceso,String foto) {
+    public boolean updateSubProceso(SubProceso subproceso,String foto,String valor) {
         if (sentencia != null) {
             try {
                 
-                int res = sentencia.executeUpdate("UPDATE SubProceso SET "+foto+" = 1 WHERE id = '" + subproceso.getId() + "' ");
+                int res = sentencia.executeUpdate("UPDATE SubProceso SET "+foto+" = "+valor+" WHERE id = '" + subproceso.getId() + "' ");
                 System.out.println(res);
                 sentencia.close();
                 con.close();

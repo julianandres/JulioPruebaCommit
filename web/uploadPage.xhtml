@@ -12,12 +12,14 @@
     <h:body>
         <h:form id="form">
             <p:panel id="panelUpload" header="Subir Fotografias en #{mainMB.subProcessSelect.nombre}">
-                <h:panelGrid id="panelGridUpload" columns="2">
+                <h:panelGrid id="panelGridUpload" columns="3">
 
                     <h:outputLabel for="fotongb" value="Mosaico Cámara Noir"/>
                     <p:commandButton id="btnnoir" value="Fotografía Noir" action="#{mainMB.irUploadPhotoNGB()}" disabled="#{archivesMB.stateNgb}" update=":form:uploadPanel" oncomplete="PF('uploadDialog').show()"/>
+                    <p:commandButton id="btnVer1" value="Eliminar" action="#{archivesMB.deleteFileNoir()}" disabled="#{!archivesMB.stateNgb}" update="panelUpload,messages"/>
                     <h:outputLabel for="fotorgb" value="Mosaico Cámara RGB" />
                     <p:commandButton id="btnrgb" value="Fotografía RGB" action="#{mainMB.irUploadPhotoRGB()}" disabled="#{archivesMB.stateRgb}" update=":form:uploadPanel" oncomplete="PF('uploadDialog').show()"/> 
+                    <p:commandButton id="btnVer2" value="Eliminar" action="#{archivesMB.deleteFileRGB()}" disabled="#{!archivesMB.stateRgb}" update="panelUpload,messages" />
                     <f:facet name="footer">
                         <c:if test="#{archivesMB.stateNgb}">
                             <c:if test="#{archivesMB.stateRgb}">
@@ -37,7 +39,10 @@
                             <h:outputLabel for="name" value="Fotografía Noir " />
 
                             <f:facet name="footer">
-                                <p:fileUpload fileUploadListener="#{archivesMB.handleFileUploadNoir}" mode="advanced" dragDropSupport="false"
+                                <p:fileUpload fileUploadListener="#{archivesMB.handleFileUploadNoir}" mode="advanced" 
+                                              dragDropSupport="false"
+                                              update="panelUpload,messages"
+                                              oncomplete="PF('uploadDialog').hide()"
                                               multiple="true" sizeLimit="100000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
                             </f:facet>
@@ -46,8 +51,14 @@
                             <h:outputText id="name" value="#{mainMB.subProcessSelect.nombre}" style="font-weight:bold" />
                             <h:outputLabel for="name" value="Fotografia RGB " />
                             <f:facet name="footer">
-                                <p:fileUpload fileUploadListener="#{archivesMB.handleFileUploadRGB}" mode="advanced" dragDropSupport="false"
-                                              multiple="true" update="messages" sizeLimit="100000000"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                <p:fileUpload fileUploadListener="#{archivesMB.handleFileUploadRGB}" 
+                                              mode="advanced" dragDropSupport="false"
+                                              multiple="true" 
+                                              oncomplete="PF('uploadDialog').hide()"
+                                              update="messages,panelUpload" 
+                                              
+                                              sizeLimit="100000000"  
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
                             </f:facet>
 
@@ -57,7 +68,11 @@
             </p:dialog>
 
             <p:growl id="messages" showDetail="true" />
-            <h:commandButton value="Logout" actionListener="#{loginBean.logout()}"/>
+            
+            <p:panelGrid id="panelGridnumero2" columns="2">
+                <p:commandButton value="Volver" action="#{mainMB.backPageUpload()}" />
+                <p:commandButton value="Logout" action="#{loginBean.logout()}"/>          
+            </p:panelGrid>
         </h:form>
     </h:body>
     <script type="text/javascript">

@@ -22,9 +22,9 @@
                     <f:facet name="footer">
                         <p:commandButton id="loginButton"
                                          value="Login"
-                                         actionListener="#{loginBean.login}" 
+                                         action="#{loginBean.login()}" 
                                          update=":mensajes"
-                                         oncomplete="manejarLogin(xhr, status, args)" />
+                                         />
                     </f:facet>
                 </h:panelGrid>
             </p:panel>

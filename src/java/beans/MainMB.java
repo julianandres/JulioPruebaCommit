@@ -60,7 +60,6 @@ public class MainMB implements Serializable {
         System.out.println("hola");
         System.out.println(logBean.getUsername());
         setSubirFotos(false);
-        setSelecttypephoto(true); 
     }
 
     public boolean isSelecttypephoto() {
@@ -137,11 +136,12 @@ public class MainMB implements Serializable {
             }
         }
     }
-    public void irUploadPhotoNGB(){
-        setSelecttypephoto(true);   
+    
+    public void verFotoNoir(){
+        setSubirFotos(false);
     }
-    public void irUploadPhotoRGB(){
-        setSelecttypephoto(false);
+    public void verFotoRGB(){
+        setSubirFotos(false);
     }
     public String abrirProceso(){
         if(processSelect!=null){

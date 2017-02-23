@@ -4,27 +4,31 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="Tycoon Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-                Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-                        function hideURLbar(){ window.scrollTo(0,1); } </script>
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> 
+            addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); }
+        </script>
         <!-- //for-mobile-apps -->
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-
         <style>
             .button {
                 display: inline-block;
                 border-radius: 4px;
+                background-color: #f4511e;
                 border: none;
+                color: #FFFFFF;
                 text-align: center;
                 font-size: 28px;
-                width: 20%;
-                height: 20%;
+                padding: 20px;
+                width: 200px;
                 transition: all 0.5s;
                 cursor: pointer;
+                margin: 5px;
             }
 
             .button span {
@@ -33,6 +37,7 @@
                 position: relative;
                 transition: 0.5s;
             }
+
             .button span:after {
                 content: '\00bb';
                 position: absolute;
@@ -41,6 +46,7 @@
                 right: -20px;
                 transition: 0.5s;
             }
+
             .button:hover span {
                 padding-right: 25px;
             }
@@ -49,19 +55,36 @@
                 opacity: 1;
                 right: 0;
             }
-            form {
-                position: static;
-                margin-left: 40%;
-                margin-top: 20%;
-            }
         </style>
+
         <title>Login Page</title>
     </h:head>
-    <h:body>
-        <h:form>
-            <p:commandButton value="Iniciar" styleClass="button" action="#{loginBean.iniciarSistema()}"/>
-            
-        </h:form> 
+    <h:body styleClass="banner">
+        <div class="bannerr">
+            <div class="container">
+                <div class="banner-info">
+                    <section class="slider">
+                        <div class="flexslider">
+                            <ul class="slides">
+
+                                <div class="banner-info-grid">
+                                    <h3>AgroMobile</h3>
+                                    <p>Soluciones Para la agricultura</p>
+                                    <div class="learn-more-get">
+                                        <h:form>
+                                            <p:commandButton class="button" styleClass="button" value="Iniciar" style="font-family: 'Playfair Display', serif;" action="#{loginBean.iniciarSistema()}"/>
+                                            
+                                        </h:form> 
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+
+                            </ul>
+                        </div>
+                    </section>		
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

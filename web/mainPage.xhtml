@@ -5,45 +5,79 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Tycoon Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> 
+            addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); }
+        </script>
+        <!-- //for-mobile-apps -->
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        <h:form>
-            <p:dataTable draggableColumns="true"
-                         emptyMessage="No hay datos para mostrar"
-                         id="listRespdf"
-                         value="#{mainMB.processTable}"
-                         var="selProcess"
-                         selectionMode="single" 
-                         selection="#{mainMB.processSelect}"
-                         rowKey="#{selProcess.nombre}">
-                <f:facet name="header">
-                    Lista de Procesos #{loginBean.username}
-                </f:facet>
-                <p:column headerText="Nombre" >
-                    <h:outputText value="#{selProcess.nombre}"/>
-                </p:column>
-                <p:column headerText="Fecha de inicio">
-                    <h:outputText value="#{selProcess.fechaInicio}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="Fecha de finalización">
-                    <h:outputText value="#{selProcess.fechaFin}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="Sub Proceso Actual">
-                    <h:outputText  value="#{selProcess.subProcesoActual}"/>
-                </p:column>
-            </p:dataTable>
-            <p:panelGrid id="panelGridnumero2" columns="2">
-                <p:commandButton action="#{mainMB.abrirProceso()}" value="Abrir Proceso seleccionado" update="messages" />
-                <p:commandButton action="#{loginBean.logout()}"  value="Cerrar Sesión"/>            
-            </p:panelGrid>
-            <p:growl id="messages" showDetail="true" />
-        </h:form>
+    <h:body styleClass="banner">
+        <div class="bannerr">
+            <div class="header">
+                <div class="container">
+                    <nav class="navbar navbar-default">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="logo">
+                                <h1><h:link styleClass="navbar-brand" outcome="index.xhtml" value="Agromobile"/></h1>
+                            </div>
+                        </div>
+                    </nav>
+                </div>		
+            </div>
+            <div class="container">
+                <h:form>
+                    <p:dataTable draggableColumns="true"
+                                 emptyMessage="No hay datos para mostrar"
+                                 id="listRespdf"
+                                 value="#{mainMB.processTable}"
+                                 var="selProcess"
+                                 selectionMode="single" 
+                                 selection="#{mainMB.processSelect}"
+                                 rowKey="#{selProcess.nombre}">
+                        <f:facet name="header">
+                            Lista de Procesos #{loginBean.username}
+                        </f:facet>
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{selProcess.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de inicio">
+                            <h:outputText value="#{selProcess.fechaInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Fecha de finalización">
+                            <h:outputText value="#{selProcess.fechaFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Sub Proceso Actual">
+                            <h:outputText  value="#{selProcess.subProcesoActual}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:panelGrid id="panelGridnumero2" columns="2">
+                        <p:commandButton action="#{mainMB.abrirProceso()}" value="Abrir Proceso seleccionado" update="messages" />
+                        <p:commandButton action="#{loginBean.logout()}"  value="Cerrar Sesión"/>            
+                    </p:panelGrid>
+                    <p:growl id="messages" showDetail="true" />
+                </h:form>
+            </div>
+        </div>
+
     </h:body>
-    
+
 </html>
 

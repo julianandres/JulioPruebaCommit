@@ -60,37 +60,39 @@ public class HandSubProcess {
                     sp.setNumeroenProceso(res.getInt("numeroenProceso"));
                     sp.setFotonoir(res.getInt("fotonoir"));
                     sp.setFotorgb(res.getInt("fotorgb"));
+                    sp.setEstado(res.getInt("estado"));
+                    
                     GregorianCalendar fechaHoy = new GregorianCalendar();
                     GregorianCalendar config = new GregorianCalendar();
                     fechaHoy.setTime(new Date());
-
                     Date datePrevia = addDays(sp.getFecha(), -1);
                     Date datePost = addDays(sp.getFecha(), 1);
-
                     config.setTime(datePrevia);
                     System.out.println(fechaHoy.getTime() + " fechaHoy");
                     System.out.println(config.getTime() + " fecha config");
-
                     int ts = config.compareTo(fechaHoy);
                     if (ts < 0) {
                         config.setTime(datePost);
                         ts = config.compareTo(fechaHoy);
                         if (ts > 0) {
-                            //esta en el rango disponible
-                            sp.setDisponibilidad(1);
+                            //esta en el rango disponible    
                             if (res.getInt("estado") == 0) {
                                 sp.setStateShow("Disponible");
+                                sp.setDisponibilidad(1);
                             } else {
-                                sp.setStateShow("Actual");
+                                sp.setStateShow("Procesado");
+                                sp.setDisponibilidad(2);
                             }
 
                         } else {
                             //rango pasado
-                            sp.setDisponibilidad(2);
+                            
                             if (res.getInt("estado") == 0) {
                                 sp.setStateShow("Perdido");
+                                sp.setDisponibilidad(3);
                             } else {
                                 sp.setStateShow("Finalizado");
+                                sp.setDisponibilidad(4);
                             }
                         }
                     } else {
@@ -98,8 +100,6 @@ public class HandSubProcess {
                         sp.setStateShow("No disponible");
                         //aun no se llega la fecha
                     }
-
-                    sp.setEstado(res.getInt("estado"));
                     resultado.add(sp);
                 }
                 sentencia.close();
@@ -149,8 +149,10 @@ public class HandSubProcess {
                 System.out.println(res);
                 sentencia.close();
                 con.close();
+                return true;
             } catch (SQLException ex) {
                 Logger.getLogger(HandSubProcess.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
         }
         return false;

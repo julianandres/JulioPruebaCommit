@@ -74,7 +74,7 @@
                             </p:column>
                         </p:dataTable>
                         <p:commandButton value="Volver" action="#{mainMB.backPage()}" />
-                        <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                        <p:dialog id="dialog" header="Detalles del proceso" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                             <p:outputPanel id="documentPanel">
                                 <p:panelGrid id="panelGrid2" columns="2" columnClasses="value,value" rendered="#{not empty mainMB.subProcessSelect}">
                                     <h:outputText value="Name: "  />
@@ -82,12 +82,15 @@
 
                                     <h:outputText value="Número en proceso " />
                                     <h:outputText id="sie" value="#{mainMB.subProcessSelect.numeroenProceso}" style="font-weight:bold" />
-
-                                    <h:outputText  value="Fecha " style="font-weight:bold" />
+                                       
+                                    <h:outputText  value="Fecha " />
                                     <h:outputText id="tpe" value="#{mainMB.subProcessSelect.fecha}" style="font-weight:bold">
                                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="EST" />
                                     </h:outputText>
-                                    <h:outputText value="Estado" style="font-weight:bold" />
+                                    <h:outputText  value="Disponibilidad "  />
+                                    <h:outputText  value="3 días a partir de la fecha"/>
+                                    
+                                    <h:outputText value="Estado"  />
                                     <h:outputText id="shw" value="#{mainMB.subProcessSelect.stateShow}" style="font-weight:bold" />
                                     
                                     <c:if test="#{mainMB.subirFotos}">

@@ -15,7 +15,7 @@ public class SubProceso {
     String stateShow;
     int fotonoir;
     int fotorgb;
-    int disponibilidad; // disponible =1 noDisponible=0 procesado=2 perdido=3 pendiente =4
+    int disponibilidad; // disponible =1 noDisponible=0 procesado=2 perdido=3
     int numeroenProceso;
     int estado;  //pendiente=0 
 

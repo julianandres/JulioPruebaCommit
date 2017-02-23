@@ -73,7 +73,7 @@
                                         </h:panelGrid>
                                         <c:if test="#{archivesMB.stateNgb}">
                                             <c:if test="#{archivesMB.stateRgb}">
-                                                <p:commandButton style="position: relative" value="Finalizar" action="processPage.xthml"/>
+                                                <p:commandButton value="Finalizar" update="messages" action="#{archivesMB.finalizarSubProceso()}"/>
                                             </c:if>                                                        
                                         </c:if>
                                     </p:panel>

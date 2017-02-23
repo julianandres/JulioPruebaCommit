@@ -308,4 +308,16 @@ public class ArchivesMB implements Serializable {
             }
         }
     }
+    public String finalizarSubProceso(){
+            if(ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "estado", "1")){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Finalizado", "Registro de fotografías completado");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                return "mainPage.xhtml?faces-redirect=true";
+            }else{
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error registrando cambios");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                return "";
+            }
+    }
+    
 }

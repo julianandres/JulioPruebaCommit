@@ -29,10 +29,10 @@ public class SubProcessEJB implements Serializable {
         hsp.cerrarConexion();
         return subProcesos;
     }
-    public boolean updateSubProceso(SubProceso subproceso,String foto,String valor){
+    public boolean updateSubProceso(SubProceso subproceso,String campo,String valor){
         boolean resultado = false;
         HandSubProcess  hsp= new HandSubProcess();
-        resultado = hsp.updateSubProceso(subproceso,foto,valor);
+        resultado = hsp.updateSubProceso(subproceso,campo,valor);
         return resultado;
     }
 }

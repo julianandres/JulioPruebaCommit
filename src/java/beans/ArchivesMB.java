@@ -193,7 +193,7 @@ public class ArchivesMB implements Serializable {
     }
     
     public void copyFile(String fileName, InputStream in, String tipo) {
-        destination = "/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
+        destination = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
         destinationImage = destination + fileName;
         System.out.println(destination);
         try {
@@ -229,7 +229,7 @@ public class ArchivesMB implements Serializable {
     }
     
     public void deleteFile(String fileName, String tipo) {
-        destination = "/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
+        destination = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
         System.out.println(destination);
         File directiorioAborrar = new File(destination);
         borrarDirectorio(directiorioAborrar);
@@ -271,7 +271,7 @@ public class ArchivesMB implements Serializable {
 
     public void verFotoNoir() {
         setSubirFotos(false);
-        String dir="/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/" ;
+        String dir="/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/" ;
         File directorio = new File(dir);
         File[] ficheros = directorio.listFiles();
         for (File fichero : ficheros) {
@@ -282,7 +282,7 @@ public class ArchivesMB implements Serializable {
                 prueba = fichero;
                 imageen = new DefaultStreamedContent(new FileInputStream(prueba));
                 System.out.println("prueba");
-            } //destinationImage = "/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+            } //destinationImage = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
             catch (FileNotFoundException ex) {
                 Logger.getLogger(ArchivesMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -291,7 +291,7 @@ public class ArchivesMB implements Serializable {
 
     public void verFotoRGB() {
         setSubirFotos(false);
-        String dir="/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoRGB/" ;
+        String dir="/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoRGB/" ;
         File directorio = new File(dir);
         File[] ficheros = directorio.listFiles();
         for (File fichero : ficheros) {
@@ -302,7 +302,7 @@ public class ArchivesMB implements Serializable {
                 prueba = fichero;
                 imageen = new DefaultStreamedContent(new FileInputStream(prueba));
                 System.out.println("prueba");
-            } //destinationImage = "/home/julian/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+            } //destinationImage = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
             catch (FileNotFoundException ex) {
                 Logger.getLogger(ArchivesMB.class.getName()).log(Level.SEVERE, null, ex);
             }
